@@ -5,20 +5,39 @@
 
 ## Entity Relationship Diagram
 
+```plantuml
+@startuml
+left to right direction
+!define TABLE(name) entity name << (T,#FFAAAA) >>
+!define PK(x) <u>x</u>
+!define FK(x) <i>x</i>
+
+TABLE(prompts) {
+  PK(id) : TEXT
+  --
+  title : TEXT <<UNIQUE>>
+  content : TEXT
+  created_at : TEXT
+  updated_at : TEXT
+}
+
+TABLE(prompt_tags) {
+  FK(prompt_id) : TEXT
+  FK(tag_name) : TEXT
+  --
+  <<PK>>
+}
+
+TABLE(tags) {
+  PK(name) : TEXT
+}
+
+prompts ||--o{ prompt_tags
+prompt_tags }o--|| tags
+@enduml
 ```
-┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
-│     prompts     │       │   prompt_tags   │       │      tags       │
-├─────────────────┤       ├─────────────────┤       ├─────────────────┤
-│ id (PK)         │──┐    │ prompt_id (FK)  │──┐    │ name (PK)       │
-│ title (UNIQUE)  │  │    │ tag_name (FK)   │  │    └─────────────────┘
-│ content         │  └───►│                 │  └───►▲
-│ created_at      │       └─────────────────┘       │
-│ updated_at      │                                 │
-└─────────────────┘                                 │
-        │                                           │
-        └───────────────────────────────────────────┘
-                    (via prompt_tags junction)
-```
+
+**Relationship**: Many-to-many via `prompt_tags` junction table. Deleting a prompt cascades to remove its tag associations.
 
 ## Entities
 
@@ -129,7 +148,17 @@ END;
 
 ## Data Operations
 
+| Operation | Used By Tool | Spec Reference |
+|-----------|--------------|----------------|
+| Create Prompt with Tags | `add_prompt` | FR-001, FR-006 |
+| Search Prompts | `search_prompts` | FR-003 |
+| Filter by Tags | `filter_by_tags` | FR-007 |
+| List Tags with Counts | `list_tags` | FR-007a |
+| Delete Prompt | `delete_prompt` | FR-005 |
+
 ### Create Prompt with Tags
+
+**Used by**: `add_prompt` tool (FR-001, FR-006)
 
 ```sql
 -- 1. Insert prompt
@@ -142,6 +171,8 @@ INSERT INTO prompt_tags (prompt_id, tag_name) VALUES (?, ?);
 
 ### Search Prompts (by keyword)
 
+**Used by**: `search_prompts` tool (FR-003)
+
 ```sql
 SELECT id, title, substr(content, 1, 200) as snippet, created_at, updated_at
 FROM prompts
@@ -151,6 +182,8 @@ LIMIT ? OFFSET ?;
 ```
 
 ### Filter by Tags (OR logic)
+
+**Used by**: `filter_by_tags` tool (FR-007)
 
 ```sql
 SELECT DISTINCT p.id, p.title, substr(p.content, 1, 200) as snippet, 
@@ -164,6 +197,8 @@ LIMIT ? OFFSET ?;
 
 ### List Tags with Counts
 
+**Used by**: `list_tags` tool (FR-007a)
+
 ```sql
 SELECT t.name, COUNT(pt.prompt_id) as prompt_count
 FROM tags t
@@ -174,7 +209,41 @@ ORDER BY t.name ASC;
 
 ### Delete Prompt (cascade removes tag associations)
 
+**Used by**: `delete_prompt` tool (FR-005)
+
 ```sql
 DELETE FROM prompts WHERE id = ?;
 -- prompt_tags entries removed automatically via CASCADE
+```
+
+### List Prompts (paginated)
+
+**Used by**: `list_prompts` tool (FR-002)
+
+```sql
+SELECT id, title, substr(content, 1, 200) as snippet, created_at, updated_at
+FROM prompts
+ORDER BY updated_at DESC
+LIMIT ? OFFSET ?;
+```
+
+### Get Prompt by ID
+
+**Used by**: `get_prompt` tool (FR-002a)
+
+```sql
+SELECT id, title, content, created_at, updated_at
+FROM prompts
+WHERE id = ?;
+```
+
+### Update Prompt
+
+**Used by**: `update_prompt` tool (FR-004)
+
+```sql
+UPDATE prompts SET title = ?, content = ? WHERE id = ?;
+-- Also: replace tag associations (delete old, insert new)
+DELETE FROM prompt_tags WHERE prompt_id = ?;
+INSERT INTO prompt_tags (prompt_id, tag_name) VALUES (?, ?);
 ```

@@ -10,7 +10,8 @@ A local-only AI prompt management MCP server that stores prompts in SQLite and e
 ## Technical Context
 
 **Language/Version**: Node.js v20+ & TypeScript  
-**Primary Dependencies**: @modelcontextprotocol/sdk (stdio transport), better-sqlite3, handlebars, zod  
+**Primary Dependencies**: @modelcontextprotocol/sdk (stdio transport), better-sqlite3, zod  
+**Deferred**: handlebars (future: prompt templates)  
 **Storage**: SQLite at `~/.prompt-store/prompts.db` (auto-created, file permissions 600)  
 **Testing**: Vitest (unit/integration)  
 **Target Platform**: Local MCP server via stdio (Node.js runtime)  
@@ -84,6 +85,23 @@ tests/
 ```
 
 **Structure Decision**: Single project (Option 1) - This is a standalone npm package with no frontend/backend split. All code lives under `src/` with clear separation between MCP tools, database layer, and models.
+
+## Implementation Order
+
+Build sequence based on dependencies and priority:
+
+| Phase | Priority | Files | Spec References |
+|-------|----------|-------|-----------------|
+| Foundation | - | `src/db/schema.sql`, `src/db/index.ts`, `src/models/*`, `src/utils/*` | FR-008, FR-009, FR-009a |
+| P1 CRUD | P1 | `src/tools/add-prompt.ts`, `src/tools/list-prompts.ts`, `src/tools/get-prompt.ts`, `src/tools/update-prompt.ts`, `src/tools/delete-prompt.ts` | User Story 1, FR-001→FR-005 |
+| P2 Search | P2 | `src/tools/search-prompts.ts` | User Story 2, FR-003 |
+| P3 Tags | P3 | `src/tools/filter-by-tags.ts`, `src/tools/list-tags.ts` | User Story 3, FR-006, FR-007, FR-007a |
+| Integration | - | `src/cli.ts`, `src/tools/index.ts`, `src/index.ts` | FR-010, FR-011, FR-013, FR-014 |
+
+**Reference Files**:
+- Database schema: [data-model.md](./data-model.md#sqlite-schema)
+- Tool contracts: [contracts/mcp-tools.md](./contracts/mcp-tools.md)
+- Integration patterns: [research.md](./research.md#integration-patterns)
 
 ## Complexity Tracking
 

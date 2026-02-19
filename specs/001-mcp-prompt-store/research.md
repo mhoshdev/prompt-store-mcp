@@ -3,6 +3,93 @@
 **Date**: 2026-02-19  
 **Feature**: 001-mcp-prompt-store
 
+## Architecture
+
+### System Diagram
+
+```plantuml
+@startuml
+!define RECTANGLE class
+
+package "MCP Client" as client {
+  [Claude Desktop / Cursor / Windsurf]
+}
+
+package "prompt-store-mcp" {
+  package "Entry" {
+    [index.ts] as index
+    [cli.ts] as cli
+  }
+  
+  package "Tools" as tools {
+    [add-prompt.ts]
+    [list-prompts.ts]
+    [get-prompt.ts]
+    [update-prompt.ts]
+    [delete-prompt.ts]
+    [search-prompts.ts]
+    [filter-by-tags.ts]
+    [list-tags.ts]
+  }
+  
+  package "Database" as db {
+    [db/index.ts] as dbindex
+    database "SQLite\nprompts.db" as sqlite {
+      entity prompts
+      entity tags
+      entity prompt_tags
+    }
+  }
+  
+  package "Shared" as shared {
+    [models/*.ts] as models
+    [utils/*.ts] as utils
+  }
+}
+
+client <-> index : stdio (JSON-RPC)
+index --> cli : parse args
+index --> tools : register
+tools --> dbindex : query
+tools ..> models : use
+tools ..> utils : use
+dbindex --> sqlite
+@enduml
+```
+
+### Data Flow
+
+```plantuml
+@startuml
+participant "MCP Client" as client
+participant "Tool Handler" as tool
+participant "Zod Schema" as zod
+participant "Database" as db
+database "SQLite" as sqlite
+
+client -> tool : MCP Request
+tool -> zod : validate input
+zod --> tool : validated params
+tool -> db : prepared statement
+db -> sqlite : execute query
+sqlite --> db : result set
+db --> tool : rows
+tool --> client : MCP Response (JSON)
+@enduml
+```
+
+### Layer Responsibilities
+
+| Layer | Files | Responsibility |
+|-------|-------|----------------|
+| Entry | `index.ts`, `cli.ts` | Parse args, bootstrap server, register tools |
+| Tools | `tools/*.ts` | MCP tool handlers, input validation, response formatting |
+| Database | `db/*.ts` | SQLite connection, schema, prepared statements |
+| Models | `models/*.ts` | TypeScript types, Zod schemas, error definitions |
+| Utils | `utils/*.ts` | Shared helpers (logger, validation utilities) |
+
+**Key Decision**: Tools call `db/*.ts` directly. No repository/service abstraction needed for 3 tables.
+
 ## Technology Decisions
 
 ### 1. MCP SDK Integration

@@ -3,6 +3,19 @@
 **Date**: 2026-02-19  
 **Feature**: 001-mcp-prompt-store
 
+## Spec Traceability
+
+| Tool | User Story | Functional Requirements |
+|------|------------|------------------------|
+| `add_prompt` | US-1 | FR-001, FR-001a, FR-001b, FR-006, FR-006a |
+| `list_prompts` | US-1 | FR-002 |
+| `get_prompt` | US-1 | FR-002a |
+| `update_prompt` | US-1 | FR-004, FR-001a, FR-001b, FR-006a |
+| `delete_prompt` | US-1 | FR-005 |
+| `search_prompts` | US-2 | FR-003 |
+| `filter_by_tags` | US-3 | FR-007 |
+| `list_tags` | US-3 | FR-007a |
+
 ## Implementation Notes
 
 - Uses `McpServer.tool()` with Zod schemas (SDK v1.x)
@@ -11,6 +24,8 @@
 - Error responses include structured `{ error: { code, message } }` within the text content
 
 ## Tool: add_prompt
+
+**Spec**: User Story 1 | FR-001, FR-001a, FR-001b, FR-006, FR-006a | **SQL**: [data-model.md](./data-model.md#create-prompt-with-tags)
 
 **Description**: Store a new AI prompt with optional tags
 
@@ -101,6 +116,8 @@ const addPromptSchema = {
 
 ## Tool: list_prompts
 
+**Spec**: User Story 1 | FR-002 | **SQL**: [data-model.md](./data-model.md#list-prompts-paginated)
+
 **Description**: List stored prompts with pagination
 
 ### Zod Schema (Implementation)
@@ -162,6 +179,8 @@ const listPromptsSchema = {
 
 ## Tool: get_prompt
 
+**Spec**: User Story 1 | FR-002a | **SQL**: [data-model.md](./data-model.md#get-prompt-by-id)
+
 **Description**: Retrieve full prompt content by ID
 
 ### Input Schema
@@ -206,6 +225,8 @@ const listPromptsSchema = {
 ---
 
 ## Tool: update_prompt
+
+**Spec**: User Story 1 | FR-004 | **SQL**: [data-model.md](./data-model.md#update-prompt)
 
 **Description**: Update an existing prompt's title, content, and tags
 
@@ -279,6 +300,8 @@ const listPromptsSchema = {
 
 ## Tool: delete_prompt
 
+**Spec**: User Story 1 | FR-005 | **SQL**: [data-model.md](./data-model.md#delete-prompt-cascade-removes-tag-associations)
+
 **Description**: Permanently remove a prompt
 
 ### Input Schema
@@ -319,6 +342,8 @@ const listPromptsSchema = {
 ---
 
 ## Tool: search_prompts
+
+**Spec**: User Story 2 | FR-003 | **SQL**: [data-model.md](./data-model.md#search-prompts-by-keyword)
 
 **Description**: Search prompts by keyword in title or content
 
@@ -373,6 +398,8 @@ const listPromptsSchema = {
 ---
 
 ## Tool: filter_by_tags
+
+**Spec**: User Story 3 | FR-007 | **SQL**: [data-model.md](./data-model.md#filter-by-tags-or-logic)
 
 **Description**: Filter prompts by one or more tags (OR logic)
 
@@ -431,6 +458,8 @@ const listPromptsSchema = {
 ---
 
 ## Tool: list_tags
+
+**Spec**: User Story 3 | FR-007a | **SQL**: [data-model.md](./data-model.md#list-tags-with-counts)
 
 **Description**: List all available tags with prompt counts
 
