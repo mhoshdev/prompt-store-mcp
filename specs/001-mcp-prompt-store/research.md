@@ -9,17 +9,13 @@
 
 ```plantuml
 @startuml
-!define RECTANGLE class
 
 package "MCP Client" as client {
   [Claude Desktop / Cursor / Windsurf]
 }
 
 package "prompt-store-mcp" {
-  package "Entry" {
-    [index.ts] as index
-    [cli.ts] as cli
-  }
+  [index.ts] as index
   
   package "Tools" as tools {
     [add-prompt.ts]
@@ -32,28 +28,23 @@ package "prompt-store-mcp" {
     [list-tags.ts]
   }
   
-  package "Database" as db {
-    [db/index.ts] as dbindex
-    database "SQLite\nprompts.db" as sqlite {
-      entity prompts
-      entity tags
-      entity prompt_tags
-    }
+  [db.ts] as db
+  database "SQLite\nprompts.db" as sqlite {
+    entity prompts
+    entity tags
+    entity prompt_tags
   }
   
-  package "Shared" as shared {
-    [models/*.ts] as models
-    [utils/*.ts] as utils
-  }
+  [schemas.ts] as schemas
+  [errors.ts] as errors
 }
 
 client <-> index : stdio (JSON-RPC)
-index --> cli : parse args
 index --> tools : register
-tools --> dbindex : query
-tools ..> models : use
-tools ..> utils : use
-dbindex --> sqlite
+tools --> db : query
+tools ..> schemas : validate
+tools ..> errors : error codes
+db --> sqlite
 @enduml
 ```
 
@@ -82,13 +73,17 @@ tool --> client : MCP Response (JSON)
 
 | Layer | Files | Responsibility |
 |-------|-------|----------------|
-| Entry | `index.ts`, `cli.ts` | Parse args, bootstrap server, register tools |
-| Tools | `tools/*.ts` | MCP tool handlers, input validation, response formatting |
-| Database | `db/*.ts` | SQLite connection, schema, prepared statements |
-| Models | `models/*.ts` | TypeScript types, Zod schemas, error definitions |
-| Utils | `utils/*.ts` | Shared helpers (logger, validation utilities) |
+| Entry | `index.ts` | CLI args, bootstrap server, register tools |
+| Tools | `tools/*.ts` | MCP tool handlers, response formatting |
+| Database | `db.ts` | SQLite connection, schema, prepared statements |
+| Schemas | `schemas.ts` | Zod schemas + TypeScript types |
+| Errors | `errors.ts` | Error codes and messages |
 
-**Key Decision**: Tools call `db/*.ts` directly. No repository/service abstraction needed for 3 tables.
+**Simplification Decisions**:
+- CLI merged into `index.ts` (only 1 flag: `--reset`)
+- Single `db.ts` instead of db/ directory
+- Single `schemas.ts` instead of models/ + utils/
+- No logger abstraction (use `console.error` directly)
 
 ## Technology Decisions
 
