@@ -140,6 +140,8 @@ server.tool(
 );
 
 async function main() {
+  console.error('prompt-store-mcp v1.0.0');
+  
   const args = process.argv.slice(2);
   
   if (args.includes('--reset')) {
