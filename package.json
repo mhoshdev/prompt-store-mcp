@@ -1,6 +1,6 @@
 {
   "name": "@mhoshdev/prompt-store-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Local MCP server for managing AI prompts with SQLite storage",
   "type": "module",
   "main": "dist/index.js",

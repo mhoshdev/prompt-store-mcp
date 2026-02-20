@@ -140,7 +140,7 @@ server.tool(
 );
 
 async function main() {
-  console.error('prompt-store-mcp v1.0.0');
+  console.error('prompt-store-mcp v1.0.1');
   
   const args = process.argv.slice(2);
   
