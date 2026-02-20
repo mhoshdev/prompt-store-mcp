@@ -23,14 +23,14 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project directory structure per plan.md
-- [ ] T002 Initialize Node.js project with package.json for prompt-store-mcp
-- [ ] T003 [P] Install dependencies: @modelcontextprotocol/sdk, better-sqlite3, zod
-- [ ] T004 [P] Install dev dependencies: typescript, vitest, @types/node, @types/better-sqlite3
-- [ ] T005 [P] Configure TypeScript with strict mode in tsconfig.json
-- [ ] T006 [P] Configure Vitest in vitest.config.ts
-- [ ] T007 [P] Configure linting and formatting tools
-- [ ] T008 [P] Add npm scripts: build, start, test, lint, typecheck in package.json
+- [x] T001 Create project directory structure per plan.md
+- [x] T002 Initialize Node.js project with package.json for prompt-store-mcp
+- [x] T003 [P] Install dependencies: @modelcontextprotocol/sdk, better-sqlite3, zod
+- [x] T004 [P] Install dev dependencies: typescript, vitest, @types/node, @types/better-sqlite3
+- [x] T005 [P] Configure TypeScript with strict mode in tsconfig.json
+- [x] T006 [P] Configure Vitest in vitest.config.ts
+- [x] T007 [P] Configure linting and formatting tools
+- [x] T008 [P] Add npm scripts: build, start, test, lint, typecheck in package.json
 
 ---
 
@@ -40,13 +40,13 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T009 Create error codes and messages in src/errors.ts (NOT_FOUND, DUPLICATE_TITLE, INVALID_TITLE, INVALID_TAG, INVALID_INPUT)
-- [ ] T010 Create Zod schemas for all entities and inputs in src/schemas.ts (Prompt, Tag, PromptTag, all tool input schemas)
-- [ ] T011 Create database connection module with schema initialization in src/db.ts
-- [ ] T012 Add database directory creation (~/.prompt-store) and file permissions (600) in src/db.ts
-- [ ] T013 Implement CLI flag handling (--reset) in src/index.ts
-- [ ] T014 Create MCP server bootstrap and stdio transport connection in src/index.ts
-- [ ] T014a [P] Create database indexes in src/db.ts (prompts.updated_at DESC, tags.name, prompt_tags composite index)
+- [x] T009 Create error codes and messages in src/errors.ts (NOT_FOUND, DUPLICATE_TITLE, INVALID_TITLE, INVALID_TAG, INVALID_INPUT)
+- [x] T010 Create Zod schemas for all entities and inputs in src/schemas.ts (Prompt, Tag, PromptTag, all tool input schemas)
+- [x] T011 Create database connection module with schema initialization in src/db.ts
+- [x] T012 Add database directory creation (~/.prompt-store) and file permissions (600) in src/db.ts
+- [x] T013 Implement CLI flag handling (--reset) in src/index.ts
+- [x] T014 Create MCP server bootstrap and stdio transport connection in src/index.ts
+- [x] T014a [P] Create database indexes in src/db.ts (prompts.updated_at DESC, tags.name, prompt_tags composite index)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -60,22 +60,22 @@
 
 ### Tests for User Story 1
 
-- [ ] T015 [P] [US1] Create unit test for add_prompt tool handler in tests/unit/tools/add-prompt.test.ts
-- [ ] T016 [P] [US1] Create unit test for list_prompts tool handler in tests/unit/tools/list-prompts.test.ts
-- [ ] T017 [P] [US1] Create unit test for get_prompt tool handler in tests/unit/tools/get-prompt.test.ts
-- [ ] T018 [P] [US1] Create unit test for update_prompt tool handler in tests/unit/tools/update-prompt.test.ts
-- [ ] T019 [P] [US1] Create unit test for delete_prompt tool handler in tests/unit/tools/delete-prompt.test.ts
-- [ ] T020 [P] [US1] Create integration test for CRUD operations in tests/integration/crud-operations.test.ts
+- [x] T015 [P] [US1] Create unit test for add_prompt tool handler in tests/unit/tools/add-prompt.test.ts
+- [x] T016 [P] [US1] Create unit test for list_prompts tool handler in tests/unit/tools/list-prompts.test.ts
+- [x] T017 [P] [US1] Create unit test for get_prompt tool handler in tests/unit/tools/get-prompt.test.ts
+- [x] T018 [P] [US1] Create unit test for update_prompt tool handler in tests/unit/tools/update-prompt.test.ts
+- [x] T019 [P] [US1] Create unit test for delete_prompt tool handler in tests/unit/tools/delete-prompt.test.ts
+- [x] T020 [P] [US1] Create integration test for CRUD operations in tests/integration/crud-operations.test.ts
 
 ### Implementation for User Story 1
 
-- [ ] T021 [P] [US1] Implement add_prompt MCP tool in src/tools/add-prompt.ts
-- [ ] T022 [P] [US1] Implement list_prompts MCP tool in src/tools/list-prompts.ts
-- [ ] T023 [P] [US1] Implement get_prompt MCP tool in src/tools/get-prompt.ts
-- [ ] T024 [P] [US1] Implement update_prompt MCP tool in src/tools/update-prompt.ts
-- [ ] T025 [P] [US1] Implement delete_prompt MCP tool in src/tools/delete-prompt.ts
-- [ ] T026 [US1] Create tool registration module in src/tools/index.ts (register all US1 tools)
-- [ ] T027 [US1] Register US1 tools with MCP server in src/index.ts
+- [x] T021 [P] [US1] Implement add_prompt MCP tool in src/tools/add-prompt.ts
+- [x] T022 [P] [US1] Implement list_prompts MCP tool in src/tools/list-prompts.ts
+- [x] T023 [P] [US1] Implement get_prompt MCP tool in src/tools/get-prompt.ts
+- [x] T024 [P] [US1] Implement update_prompt MCP tool in src/tools/update-prompt.ts
+- [x] T025 [P] [US1] Implement delete_prompt MCP tool in src/tools/delete-prompt.ts
+- [x] T026 [US1] Create tool registration module in src/tools/index.ts (register all US1 tools)
+- [x] T027 [US1] Register US1 tools with MCP server in src/index.ts
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently - users can store, list, retrieve, update, and delete prompts.
 
@@ -89,14 +89,14 @@
 
 ### Tests for User Story 2
 
-- [ ] T028 [P] [US2] Create unit test for search_prompts tool handler in tests/unit/tools/search-prompts.test.ts
-- [ ] T029 [P] [US2] Create integration test for search operations in tests/integration/search-operations.test.ts
+- [x] T028 [P] [US2] Create unit test for search_prompts tool handler in tests/unit/tools/search-prompts.test.ts
+- [x] T029 [P] [US2] Create integration test for search operations in tests/integration/search-operations.test.ts
 
 ### Implementation for User Story 2
 
-- [ ] T030 [P] [US2] Implement search_prompts MCP tool in src/tools/search-prompts.ts
-- [ ] T031 [US2] Register search_prompts tool in src/tools/index.ts
-- [ ] T032 [US2] Register US2 tool with MCP server in src/index.ts
+- [x] T030 [P] [US2] Implement search_prompts MCP tool in src/tools/search-prompts.ts
+- [x] T031 [US2] Register search_prompts tool in src/tools/index.ts
+- [x] T032 [US2] Register US2 tool with MCP server in src/index.ts
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - users can search their prompt library by keywords.
 
@@ -110,16 +110,16 @@
 
 ### Tests for User Story 3
 
-- [ ] T033 [P] [US3] Create unit test for filter_by_tags tool handler in tests/unit/tools/filter-by-tags.test.ts
-- [ ] T034 [P] [US3] Create unit test for list_tags tool handler in tests/unit/tools/list-tags.test.ts
-- [ ] T035 [P] [US3] Create integration test for tag operations in tests/integration/tag-operations.test.ts
+- [x] T033 [P] [US3] Create unit test for filter_by_tags tool handler in tests/unit/tools/filter-by-tags.test.ts
+- [x] T034 [P] [US3] Create unit test for list_tags tool handler in tests/unit/tools/list-tags.test.ts
+- [x] T035 [P] [US3] Create integration test for tag operations in tests/integration/tag-operations.test.ts
 
 ### Implementation for User Story 3
 
-- [ ] T036 [P] [US3] Implement filter_by_tags MCP tool in src/tools/filter-by-tags.ts
-- [ ] T037 [P] [US3] Implement list_tags MCP tool in src/tools/list-tags.ts
-- [ ] T038 [US3] Register US3 tools in src/tools/index.ts
-- [ ] T039 [US3] Register US3 tools with MCP server in src/index.ts
+- [x] T036 [P] [US3] Implement filter_by_tags MCP tool in src/tools/filter-by-tags.ts
+- [x] T037 [P] [US3] Implement list_tags MCP tool in src/tools/list-tags.ts
+- [x] T038 [US3] Register US3 tools in src/tools/index.ts
+- [x] T039 [US3] Register US3 tools with MCP server in src/index.ts
 
 **Checkpoint**: All user stories should now be independently functional - users can organize prompts with tags and filter by tags.
 
@@ -129,18 +129,18 @@
 
 **Purpose**: Final validation, documentation, and quality improvements
 
-- [ ] T040 [P] Run full test suite and verify 80%+ coverage
+- [x] T040 [P] Run full test suite and verify 80%+ coverage
 - [ ] T041 [P] Create comprehensive MCP integration test in tests/integration/mcp-tools.test.ts
 - [ ] T042 [P] Add JSDoc comments to all exported functions
-- [ ] T043 Verify all error paths return structured JSON error responses
-- [ ] T044 Verify stderr logging for errors only
-- [ ] T045 [P] Validate package.json metadata (name, version, description, bin entry)
+- [x] T043 Verify all error paths return structured JSON error responses
+- [x] T044 Verify stderr logging for errors only
+- [x] T045 [P] Validate package.json metadata (name, version, description, bin entry)
 - [ ] T046 Test package installation via npx prompt-store-mcp
 - [ ] T047 Run quickstart.md validation scenarios
 - [ ] T048 Performance validation: CRUD <200ms p95, search <500ms, tag operations <300ms for 10k prompts
 - [ ] T048a Validate 100% data persistence: restart server and verify all prompts/tags intact
-- [ ] T049 Final lint and typecheck pass
-- [ ] T050 Create README.md with installation instructions, MCP client configuration examples, and usage examples from quickstart.md
+- [x] T049 Final lint and typecheck pass
+- [x] T050 Create README.md with installation instructions, MCP client configuration examples, and usage examples from quickstart.md
 
 ---
 
