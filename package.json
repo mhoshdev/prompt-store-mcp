@@ -7,6 +7,11 @@
   "bin": {
     "prompt-store-mcp": "dist/index.js"
   },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
@@ -21,10 +26,21 @@
     "prompt",
     "ai",
     "sqlite",
-    "model-context-protocol"
+    "model-context-protocol",
+    "claude",
+    "cursor",
+    "windsurf"
   ],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhoshdev/prompt-store-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mhoshdev/prompt-store-mcp/issues"
+  },
+  "homepage": "https://github.com/mhoshdev/prompt-store-mcp#readme",
   "engines": {
     "node": ">=20"
   },
