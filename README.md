@@ -10,18 +10,17 @@ A local-only MCP (Model Context Protocol) server for managing AI prompts with SQ
 - **Works everywhere** - Same prompts available in Claude, Cursor, Windsurf, any MCP client.
 - **100% local** - All data stays on your machine in SQLite. Your prompts, your control.
 - **Fast search** - Find prompts by keyword or filter by tags instantly.
-- **Zero setup** - One command with npx, no configuration needed.
+- **Easy setup** - One npx command, no install needed.
 
 ## 📦 Installation
 
-```bash
-# Run directly with npx (recommended)
-npx @mhoshdev/prompt-store-mcp
+No installation needed. Just use npx:
 
-# Or install globally
-npm install -g @mhoshdev/prompt-store-mcp
-prompt-store-mcp
+```bash
+npx -y @mhoshdev/prompt-store-mcp@latest
 ```
+
+> **Note:** Requires Node.js 20+.
 
 ## ⚙️ MCP Client Configuration
 
@@ -34,7 +33,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
   "mcpServers": {
     "prompt-store": {
       "command": "npx",
-      "args": ["@mhoshdev/prompt-store-mcp"]
+      "args": ["-y", "@mhoshdev/prompt-store-mcp@latest"]
     }
   }
 }
@@ -49,7 +48,7 @@ Add to your Cursor MCP settings:
   "mcpServers": {
     "prompt-store": {
       "command": "npx",
-      "args": ["@mhoshdev/prompt-store-mcp"]
+      "args": ["-y", "@mhoshdev/prompt-store-mcp@latest"]
     }
   }
 }
@@ -64,20 +63,22 @@ Add to your Windsurf MCP configuration:
   "mcpServers": {
     "prompt-store": {
       "command": "npx",
-      "args": ["@mhoshdev/prompt-store-mcp"]
+      "args": ["-y", "@mhoshdev/prompt-store-mcp@latest"]
     }
   }
 }
 ```
 
+> **For CLI access** (e.g., `--reset`): `npx -y @mhoshdev/prompt-store-mcp@latest --reset`
+
 ## CLI Options
 
 ```bash
 # Start MCP server (default)
-npx @mhoshdev/prompt-store-mcp
+npx -y @mhoshdev/prompt-store-mcp@latest
 
 # Reset database (clear all data, keep schema)
-npx @mhoshdev/prompt-store-mcp --reset
+npx -y @mhoshdev/prompt-store-mcp@latest --reset
 ```
 
 ## 🛠️ Available Tools
@@ -151,14 +152,14 @@ pnpm typecheck
 ### Database corruption
 
 1. Backup: `cp ~/.prompt-store/prompts.db ~/.prompt-store/prompts.db.backup`
-2. Reset: `npx @mhoshdev/prompt-store-mcp --reset`
+2. Reset: `npx -y @mhoshdev/prompt-store-mcp@latest --reset`
 3. Re-add prompts
 
 ### MCP client can't connect
 
 1. Verify MCP client configuration path is correct
 2. Restart MCP client after configuration changes
-3. Ensure `npx @mhoshdev/prompt-store-mcp` runs successfully in terminal
+3. Ensure `npx -y @mhoshdev/prompt-store-mcp@latest` runs successfully in terminal
 
 ## License
 
