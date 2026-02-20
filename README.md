@@ -1,19 +1,29 @@
-# prompt-store-mcp
+# @mhoshdev/prompt-store-mcp
 
 A local-only MCP (Model Context Protocol) server for managing AI prompts with SQLite storage. Designed for individual developers to organize prompts without complex web services.
 
-## Installation
+## ✨ Why Use This?
+
+**Your personal prompt library** - Store, search, and reuse prompts across all your AI tools.
+
+- **Simple & focused** - Just prompts, nothing more. No cloud, no accounts, no complexity.
+- **Works everywhere** - Same prompts available in Claude, Cursor, Windsurf, any MCP client.
+- **100% local** - All data stays on your machine in SQLite. Your prompts, your control.
+- **Fast search** - Find prompts by keyword or filter by tags instantly.
+- **Zero setup** - One command with npx, no configuration needed.
+
+## 📦 Installation
 
 ```bash
 # Run directly with npx (recommended)
-npx prompt-store-mcp
+npx @mhoshdev/prompt-store-mcp
 
 # Or install globally
-npm install -g prompt-store-mcp
+npm install -g @mhoshdev/prompt-store-mcp
 prompt-store-mcp
 ```
 
-## MCP Client Configuration
+## ⚙️ MCP Client Configuration
 
 ### Claude Desktop
 
@@ -24,7 +34,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
   "mcpServers": {
     "prompt-store": {
       "command": "npx",
-      "args": ["prompt-store-mcp"]
+      "args": ["@mhoshdev/prompt-store-mcp"]
     }
   }
 }
@@ -39,7 +49,7 @@ Add to your Cursor MCP settings:
   "mcpServers": {
     "prompt-store": {
       "command": "npx",
-      "args": ["prompt-store-mcp"]
+      "args": ["@mhoshdev/prompt-store-mcp"]
     }
   }
 }
@@ -54,7 +64,7 @@ Add to your Windsurf MCP configuration:
   "mcpServers": {
     "prompt-store": {
       "command": "npx",
-      "args": ["prompt-store-mcp"]
+      "args": ["@mhoshdev/prompt-store-mcp"]
     }
   }
 }
@@ -64,13 +74,13 @@ Add to your Windsurf MCP configuration:
 
 ```bash
 # Start MCP server (default)
-npx prompt-store-mcp
+npx @mhoshdev/prompt-store-mcp
 
 # Reset database (clear all data, keep schema)
-npx prompt-store-mcp --reset
+npx @mhoshdev/prompt-store-mcp --reset
 ```
 
-## Available Tools
+## 🛠️ Available Tools
 
 | Tool | Description |
 |------|-------------|
@@ -83,7 +93,7 @@ npx prompt-store-mcp --reset
 | `filter_by_tags` | Filter prompts by tags (OR logic) |
 | `list_tags` | List all tags with prompt counts |
 
-## Example Usage
+## 💡 Example Usage
 
 ### Store a Prompt
 
@@ -108,13 +118,13 @@ Use filter_by_tags with:
 - tags: ["coding", "review"]
 ```
 
-## Data Storage
+## 💾 Data Storage
 
 - **Location**: `~/.prompt-store/prompts.db`
 - **Format**: SQLite database
 - **Permissions**: User-only read/write (600)
 
-## Development
+## 🔧 Development
 
 ```bash
 # Install dependencies
@@ -130,7 +140,7 @@ pnpm test
 pnpm typecheck
 ```
 
-## Troubleshooting
+## 🔍 Troubleshooting
 
 ### Server won't start
 
@@ -141,14 +151,14 @@ pnpm typecheck
 ### Database corruption
 
 1. Backup: `cp ~/.prompt-store/prompts.db ~/.prompt-store/prompts.db.backup`
-2. Reset: `npx prompt-store-mcp --reset`
+2. Reset: `npx @mhoshdev/prompt-store-mcp --reset`
 3. Re-add prompts
 
 ### MCP client can't connect
 
 1. Verify MCP client configuration path is correct
 2. Restart MCP client after configuration changes
-3. Ensure `npx prompt-store-mcp` runs successfully in terminal
+3. Ensure `npx @mhoshdev/prompt-store-mcp` runs successfully in terminal
 
 ## License
 
