@@ -111,17 +111,17 @@ As a developer, I want to assign tags to my prompts so I can organize them into 
 
 ### Measurable Outcomes
 
-- **SC-001**: Users can complete all CRUD operations (add, list, update, delete) on prompts within 2 seconds per operation when the database contains up to 10,000 prompts.
+- **SC-001**: Users can complete all CRUD operations (add, list, update, delete) on prompts within 200 milliseconds (p95) per operation when the database contains up to 10,000 prompts.
 
 - **SC-002**: Search operations return results in under 500 milliseconds for databases containing up to 10,000 prompts.
 
-- **SC-003**: The `prompt-store-mcp` npm package installs successfully and the MCP server starts within 5 seconds on a standard development machine.
+- **SC-003**: The `prompt-store-mcp` npm package installs successfully and the MCP server starts within 5 seconds on a machine with 4+ CPU cores, 8GB+ RAM, and SSD storage.
 
 - **SC-004**: 100% of prompt data persists correctly between server restarts - no data loss occurs during normal operation.
 
 - **SC-005**: Users can filter prompts by tags and receive correct results, with tag operations completing in under 300 milliseconds.
 
-- **SC-006**: The system handles database files up to 100MB without performance degradation in search or list operations.
+- **SC-006**: The system handles database files up to 100MB with search and list operations completing in under 1 second (p95).
 
 ## Clarifications
 
@@ -150,7 +150,6 @@ As a developer, I want to assign tags to my prompts so I can organize them into 
 - Q: What should be the npm package name for this project? → A: prompt-store-mcp
 - Q: What should the `--reset` CLI flag do to the database? → A: Clear all rows from tables (DELETE FROM) while preserving the database file and schema
 - Q: Should there be a maximum length constraint on prompt titles? → A: Yes, maximum 200 characters
-- Q: Should the system include a "reset all" or bulk delete functionality to clear all data in the database? → A: Yes, via CLI flag only (e.g., `--reset`) for testing purposes; NOT exposed as MCP tool for safety
 
 ## Assumptions
 

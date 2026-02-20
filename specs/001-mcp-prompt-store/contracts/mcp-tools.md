@@ -390,10 +390,12 @@ const listPromptsSchema = {
   "total": 3,
   "query": "review",
   "limit": 10,
-  "offset": 0,
-  "has_more": false
-}
+    "offset": 0,
+    "has_more": false
+  }
 ```
+
+**Note**: Empty query string returns all prompts (equivalent to `list_prompts`). See spec.md edge cases.
 
 ---
 
